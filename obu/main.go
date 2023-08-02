@@ -6,15 +6,10 @@ import (
 	"math"
 	"math/rand"
 	"time"
+	"tolling/types"
 )
 
-const wsEndpoint = "ws://127.0.0.1/ws"
-
-type OBUData struct {
-	OBUID int     `json:"id"`
-	Long  float64 `json:"long"`
-	Lat   float64 `json:"lat"`
-}
+const wsEndpoint = "ws://127.0.0.1:30000/ws"
 
 func main() {
 	conn, _, err := websocket.DefaultDialer.Dial(wsEndpoint, nil)
@@ -24,7 +19,7 @@ func main() {
 	for {
 		obuIds := generateOBUID(20)
 		for i := 0; i < len(obuIds); i++ {
-			data := OBUData{
+			data := types.OBUData{
 				OBUID: obuIds[i],
 				Long:  generateCoords(),
 				Lat:   generateCoords(),
